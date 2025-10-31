@@ -29,7 +29,7 @@
 }
 
 body {
-    font-family: 'Exo 2', sans-serif;
+    font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: var(--dark);
     background-color: var(--light);
@@ -1321,4 +1321,5 @@ footer {
     .service-card.featured:hover {
         transform: translateY(-10px);
     }
+
 }
