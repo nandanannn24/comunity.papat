@@ -118,4 +118,93 @@ function updateMapCoordinates(lat, lng) {
 }
 
 // Update map with new coordinates
+
 updateMapCoordinates(-7.334611, 112.788333);
+
+// Mobile Menu Functionality
+function initMobileMenu() {
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenu && navLinks) {
+        mobileMenu.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            // Toggle icon between bars and times
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenu.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navLinks.contains(event.target) || mobileMenu.contains(event.target);
+            if (!isClickInsideNav && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                const icon = mobileMenu.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+}
+
+// Responsive Image Handling
+function initResponsiveImages() {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        if (!img.hasAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+        }
+        if (!img.hasAttribute('alt')) {
+            img.setAttribute('alt', 'Papat Community');
+        }
+    });
+}
+
+// Viewport Height Fix for Mobile
+function setViewportHeight() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// Touch Device Detection
+function isTouchDevice() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+// Initialize all responsive features
+function initResponsiveFeatures() {
+    initMobileMenu();
+    initResponsiveImages();
+    setViewportHeight();
+    
+    // Add touch device class if needed
+    if (isTouchDevice()) {
+        document.body.classList.add('touch-device');
+    }
+}
+
+// Update on resize
+window.addEventListener('resize', function() {
+    setViewportHeight();
+});
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initResponsiveFeatures();
+});
