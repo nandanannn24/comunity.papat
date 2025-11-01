@@ -53,37 +53,65 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    overflow: hidden;
+    z-index: -999;
+    pointer-events: none;
 }
 
+/* Main background image */
+.bg-elements::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/background.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 0.15;
+    transition: opacity 0.3s ease;
+    z-index: -2;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .bg-elements::before {
+    opacity: 0.5;
+}
+
+/* Decorative overlay grid */
 .bg-grid {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-image:
-        linear-gradient(rgba(107, 70, 193, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(107, 70, 193, 0.1) 1px, transparent 1px);
+        linear-gradient(rgba(107, 70, 193, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(107, 70, 193, 0.06) 1px, transparent 1px);
     background-size: 50px 50px;
     opacity: 0.5;
+    z-index: -1;
 }
 
+/* Keep your existing floating shapes code */
 .floating-shapes {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    perspective: 2000px;
+    /* Increased perspective for more dramatic 3D */
 }
 
 .shape {
     position: absolute;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    opacity: 0.1;
-    animation: float 20s infinite linear;
+    transform-style: preserve-3d;
+    opacity: 0.15;
+    animation: float3d 20s infinite linear;
+    box-shadow: 0 0 20px rgba(107, 70, 193, 0.2);
 }
 
 .shape-1 {
@@ -92,6 +120,13 @@ body {
     top: 10%;
     left: 5%;
     animation-delay: 0s;
+    background: linear-gradient(135deg,
+            #9F7AEA 0%,
+            #6B46C1 50%,
+            #553C9A 100%);
+    transform-origin: center;
+    transform: rotateX(45deg) rotateY(45deg);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .shape-2 {
@@ -100,6 +135,12 @@ body {
     top: 60%;
     left: 80%;
     animation-delay: -5s;
+    background: linear-gradient(135deg,
+            #B794F4 0%,
+            #805AD5 50%,
+            #6B46C1 100%);
+    transform: rotateX(60deg) rotateY(30deg);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
 .shape-3 {
@@ -108,6 +149,12 @@ body {
     top: 80%;
     left: 10%;
     animation-delay: -10s;
+    background: linear-gradient(135deg,
+            #D6BCFA 0%,
+            #9F7AEA 50%,
+            #805AD5 100%);
+    transform: rotateX(30deg) rotateZ(45deg);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
 
 .shape-4 {
@@ -116,6 +163,40 @@ body {
     top: 20%;
     left: 70%;
     animation-delay: -15s;
+    background: linear-gradient(135deg,
+            #E9D8FD 0%,
+            #B794F4 50%,
+            #9F7AEA 100%);
+    transform: rotateY(60deg) rotateX(45deg);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+@keyframes float3d {
+    0% {
+        transform: rotate3d(1, 1, 1, 0deg) translateZ(100px);
+    }
+
+    25% {
+        transform: rotate3d(1, 2, 0.5, 90deg) translateZ(200px);
+    }
+
+    50% {
+        transform: rotate3d(0.5, 1, 2, 180deg) translateZ(100px);
+    }
+
+    75% {
+        transform: rotate3d(2, 0.5, 1, 270deg) translateZ(0px);
+    }
+
+    100% {
+        transform: rotate3d(1, 1, 1, 360deg) translateZ(100px);
+    }
+}
+
+/* Slightly reduce decorative opacity in dark mode to avoid overpowering the UI */
+[data-theme="dark"] .bg-grid,
+[data-theme="dark"] .shape {
+    opacity: 0.08;
 }
 
 @keyframes float {
@@ -1290,48 +1371,61 @@ RESPONSIVE DESIGN (FIXED FOR MOBILE)
 =====================================
 */
 @media (max-width: 768px) {
-    
+
     /* FIX: Pastikan konten di dalam container memiliki padding yang cukup */
     .container {
-        width: 100%; /* Gunakan lebar penuh */
-        padding: 0 15px; /* Tambahkan padding di kiri dan kanan */
+        width: 100%;
+        /* Gunakan lebar penuh */
+        padding: 0 15px;
+        /* Tambahkan padding di kiri dan kanan */
     }
-    
+
     /* FIX UTAMA: Mengatur ulang navbar agar tidak terpotong */
     .navbar {
         /* Kembalikan ke flex-direction: row untuk menjaga logo dan aksi sejajar */
-        flex-direction: row; 
-        justify-content: space-between; 
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
-        gap: 0; 
-        padding: 1rem 0; /* Menggunakan padding 0 karena sudah ada di .container */
+        gap: 0;
+        padding: 1rem 0;
+        /* Menggunakan padding 0 karena sudah ada di .container */
     }
 
     /* FIX: Kontainer Aksi (Tombol dan Menu) harus kompak dan tidak pecah */
     .nav-actions {
         display: flex;
         align-items: center;
-        width: auto; 
-        flex-shrink: 1; /* IZINKAN MENYUSUT */
-        flex-wrap: nowrap; /* PENTING: JANGAN BIARKAN ELEMEN JATUH KE BAWAH */
-        gap: 0.5rem; /* Kurangi jarak antar tombol */
-        justify-content: flex-end; /* Dorong elemen ke kanan */
+        width: auto;
+        flex-shrink: 1;
+        /* IZINKAN MENYUSUT */
+        flex-wrap: nowrap;
+        /* PENTING: JANGAN BIARKAN ELEMEN JATUH KE BAWAH */
+        gap: 0.5rem;
+        /* Kurangi jarak antar tombol */
+        justify-content: flex-end;
+        /* Dorong elemen ke kanan */
     }
-    
+
     /* FIX: Ubah ukuran tombol agar muat di layar sempit */
-    .cta-button, .login-btn {
-        padding: 0.4rem 0.7rem; /* Kurangi padding tombol */
-        font-size: 0.85rem; /* Kurangi ukuran font */
-        white-space: nowrap; /* MENCEGAH PECAHNYA TEKS */
+    .cta-button,
+    .login-btn {
+        padding: 0.4rem 0.7rem;
+        /* Kurangi padding tombol */
+        font-size: 0.85rem;
+        /* Kurangi ukuran font */
+        white-space: nowrap;
+        /* MENCEGAH PECAHNYA TEKS */
     }
-    
+
     /* FIX: Atur ulang posisi mobile menu dan tampilkan */
     .mobile-menu {
         display: block;
-        position: static; /* Hilangkan absolute/fixed agar ikut di dalam nav-actions */
-        margin-left: 5px; /* Sedikit jarak dari tombol di sebelahnya */
+        position: static;
+        /* Hilangkan absolute/fixed agar ikut di dalam nav-actions */
+        margin-left: 5px;
+        /* Sedikit jarak dari tombol di sebelahnya */
     }
-    
+
     /* Tombol Theme Toggle juga harus menyusut */
     .theme-toggle {
         width: 30px;
