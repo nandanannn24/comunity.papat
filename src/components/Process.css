@@ -1,0 +1,256 @@
+/* components/Process.css */
+.process {
+    position: relative;
+    padding: 4rem 0;
+    background: linear-gradient(180deg,
+            rgba(107, 70, 193, 0.03) 0%,
+            rgba(0, 38, 59, 0.06) 100%);
+}
+
+.process::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 70%,
+            rgba(107, 70, 193, 0.03) 0%,
+            transparent 50%);
+    pointer-events: none;
+}
+
+/* Desktop Topologi Bus */
+.process-bus-container {
+    display: none;
+    /* Sembunyikan versi lama */
+}
+
+/* Desktop Grid - Topologi Bus */
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Bus Line - Garis horizontal di tengah */
+.bus-line {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    right: 50px;
+    height: 4px;
+    background: linear-gradient(90deg,
+            var(--primary) 0%,
+            var(--accent) 50%,
+            var(--primary) 100%);
+    transform: translateY(-50%);
+    z-index: 1;
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(107, 70, 193, 0.3);
+}
+
+/* Bus Nodes - Titik di garis */
+.bus-node {
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: var(--accent);
+    border: 3px solid var(--primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}
+
+.bus-node:nth-child(1) {
+    left: 25%;
+}
+
+.bus-node:nth-child(2) {
+    left: 37.5%;
+}
+
+.bus-node:nth-child(3) {
+    left: 50%;
+}
+
+.bus-node:nth-child(4) {
+    left: 62.5%;
+}
+
+.bus-node:nth-child(5) {
+    left: 75%;
+}
+
+/* Process Steps */
+.process-step {
+    background: rgba(15, 20, 25, 0.25);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 3;
+    margin-top: 60px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.process-step::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to top, var(--primary), var(--accent));
+    transform: translateX(-50%);
+}
+
+.process-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(107, 70, 193, 0.3);
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+    box-shadow: 0 8px 20px rgba(107, 70, 193, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 4;
+}
+
+.process-step:hover .step-number {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 12px 25px rgba(107, 70, 193, 0.4);
+}
+
+.step-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 1rem;
+    color: var(--accent);
+    font-size: 1.8rem;
+}
+
+.process-step h3 {
+    color: var(--primary-light);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.4;
+    min-height: 2.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.process-step p {
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Mobile - Layout Sederhana */
+@media (max-width: 1024px) {
+
+    .bus-line,
+    .bus-node {
+        display: none;
+    }
+
+    .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        max-width: 800px;
+    }
+
+    .process-step {
+        margin-top: 0;
+        min-height: auto;
+        padding: 1.8rem 1.2rem;
+    }
+
+    .process-step::before {
+        display: none;
+    }
+
+    .step-number {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .step-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .process-step h3 {
+        font-size: 1.1rem;
+        min-height: 2.5rem;
+    }
+
+    .process-step p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .process-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        max-width: 400px;
+    }
+
+    .process-step {
+        padding: 1.5rem 1rem;
+    }
+
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .step-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 1.3rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .process-step h3 {
+        font-size: 1rem;
+        min-height: auto;
+        margin-bottom: 0.8rem;
+    }
+
+    .process-step p {
+        font-size: 0.85rem;
+    }
+}

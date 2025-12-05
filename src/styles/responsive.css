@@ -1,0 +1,177 @@
+/* =============================== GLOBAL FIXES =============================== */
+.text-justify {
+    text-align: justify !important;
+}
+
+/* =============================== LOGO PHILOSOPHY CENTER FIX =============================== */
+.philosophy-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.logo-display {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* =============================== CONTACT LAYOUT FIX =============================== */
+.contact-desktop-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.contact-map-container {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    height: 400px;
+}
+
+.contact-info-container {
+    padding: 2rem;
+    border-radius: var(--border-radius);
+}
+
+.contact-info-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.contact-info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+.contact-button {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+/* =============================== TEAM GRID RESPONSIVE =============================== */
+.team-grid-new {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+/* =============================== PHILOSOPHY GRID RESPONSIVE =============================== */
+.philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* =============================== MOBILE RESPONSIVE =============================== */
+@media (max-width: 1024px) {
+    .team-grid-new {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .philosophy-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Contact Mobile */
+    .contact-desktop-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-info-content {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-button {
+        grid-column: span 2;
+    }
+
+    /* Team Mobile - 2 kolom */
+    .team-grid-new {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    /* Philosophy Mobile - 1 kolom */
+    .philosophy-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Services Mobile */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card.featured {
+        transform: none;
+    }
+
+    .service-card.featured:hover {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Contact Small Mobile */
+    .contact-info-content {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-button {
+        grid-column: 1;
+    }
+
+    /* Team Small Mobile - 1 kolom */
+    .team-grid-new {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Team Member Size */
+    .team-member {
+        padding: 1.5rem;
+    }
+
+    .member-photo {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Hero Mobile */
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    /* Section Title Mobile */
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+
+    /* Logo Orb Mobile */
+    .logo-orb {
+        width: 280px;
+        height: 280px;
+    }
+}
